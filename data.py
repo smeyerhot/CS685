@@ -68,28 +68,31 @@ def split_data(dataset, sizes):
 
 class GPT2Dataset(Dataset):
 
-  def __init__(self, df, tokenizer, gpt2_type="gpt2", max_length=768):
+  def __init__(self, df, encoder_tokenizer, decoder_tokenizer, gpt2_type="gpt2", max_length=768):
 
-    self.tokenizer = tokenizer
+    self.encoder_tokenizer = encoder_tokenizer
+    self.decoder_tokenizer = decoder_tokenizer
     self.input_ids = []
     self.decoder_ids = []
     self.attn_masks = []
+    self.decoder_attn_masks = []
     self.id_nums = df.id.copy()
 
     encoder_txt = df.encoder.copy()
     decoder_txt = df.decoder.copy()
 
     for i in range(len(encoder_txt)):
-      encoder_dict = tokenizer(encoder_txt[i][0] + tokenizer.eos_token, truncation=True, max_length=max_length, padding="max_length")
-      decoder_dict = tokenizer(decoder_txt[i][0] + tokenizer.eos_token, truncation=True, max_length=max_length, padding="max_length")
+      encoder_dict = encoder_tokenizer(encoder_txt[i][0] + encoder_tokenizer.eos_token, truncation=True, max_length=max_length, padding="max_length")
+      decoder_dict = decoder_tokenizer(decoder_txt[i][0] + decoder_tokenizer.eos_token, truncation=True, max_length=max_length, padding="max_length")
 
       self.input_ids.append(torch.tensor(encoder_dict['input_ids']))
       self.decoder_ids.append(torch.tensor(decoder_dict['input_ids']))
 
       self.attn_masks.append(torch.tensor(encoder_dict['attention_mask']))
+      self.decoder_attn_masks.append(torch.tensor(decoder_dict['attention_mask']))
     
   def __len__(self):
     return len(self.input_ids)
 
   def __getitem__(self, idx):
-    return self.input_ids[idx], self.decoder_ids[idx], self.id_nums[idx], self.attn_masks[idx] 
+    return self.input_ids[idx], self.decoder_ids[idx], self.id_nums[idx], self.attn_masks[idx], self.decoder_attn_masks[idx]
