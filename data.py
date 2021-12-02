@@ -68,7 +68,7 @@ def split_data(dataset, sizes):
 
 class GPT2Dataset(Dataset):
 
-  def __init__(self, df, encoder_tokenizer, decoder_tokenizer, gpt2_type="gpt2", max_length=768):
+  def __init__(self, df, encoder_tokenizer, decoder_tokenizer, gpt2_type="gpt2", max_length=768, decoder_only=True):
 
     self.encoder_tokenizer = encoder_tokenizer
     self.decoder_tokenizer = decoder_tokenizer
@@ -82,8 +82,12 @@ class GPT2Dataset(Dataset):
     decoder_txt = df.decoder.copy()
 
     for i in range(len(encoder_txt)):
-      encoder_dict = encoder_tokenizer(encoder_txt[i][0] + encoder_tokenizer.eos_token, truncation=True, max_length=max_length, padding="max_length")
-      decoder_dict = decoder_tokenizer(decoder_txt[i][0] + decoder_tokenizer.eos_token, truncation=True, max_length=max_length, padding="max_length")
+      if decoder_only:
+        encoder_dict = encoder_tokenizer(encoder_txt[i][0] + encoder_tokenizer.eos_token, truncation=True, max_length=max_length, padding="max_length")
+        decoder_dict = decoder_tokenizer(decoder_txt[i][0] + decoder_tokenizer.eos_token, truncation=True, max_length=max_length, padding="max_length")
+      else:
+        encoder_dict = encoder_tokenizer(encoder_txt[i][0], truncation=True, max_length=max_length, padding="max_length")
+        decoder_dict = decoder_tokenizer(decoder_txt[i][0], truncation=True, max_length=max_length, padding="max_length")
 
       self.input_ids.append(torch.tensor(encoder_dict['input_ids']))
       self.decoder_ids.append(torch.tensor(decoder_dict['input_ids']))
