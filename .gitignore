@@ -1,3 +1,5 @@
 Medical-Dialogue-Dataset-English/
 Medical-Dialogue-Dataset-English/
 .DS_Store
+__pycache__/
+integration-script.ipynb
