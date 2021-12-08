@@ -1,3 +1,6 @@
 Medical-Dialogue-Dataset-English/
 Medical-Dialogue-Dataset-English/
 .DS_Store
+transformers
+transformers/
+models/
