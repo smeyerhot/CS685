@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 import numpy as np
 import pandas as pd
 
-torch.manual_seed(0)
+torch.manual_seed(42)
 
 def preprocessing(cd_df):
     encoder_text = []
@@ -16,10 +16,18 @@ def preprocessing(cd_df):
     for j, dial in enumerate(cd_df["dialogue_turns"]):
         encoder_temp = []
         decoder_temp = []
-        u = dial["utterance"]
+        u = dial["utterance"].copy()
+        speakers = dial["speaker"].copy()
 
         visited = [False] * len(u)
-        
+
+        for i in range(len(u)):
+            if speakers[i] == 0:
+                u[i] = "<|patient|>" + u[i]
+            else:
+                u[i] = "<|doctor|>" + u[i]
+        # print(u)
+
         while not all(visited):
             text.append([''.join(u)])
             for i in range(len(u)):
@@ -30,11 +38,12 @@ def preprocessing(cd_df):
                         encoder_temp.append(u[i])
                         visited[i] = True
                     else:
-                        decoder_temp.append(u[i])
+                        decoder_temp.append(u[i][10:])
                         visited[i] = True
                         break
             
             id_num.append(j)
+            encoder_temp.append("<|doctor|>")
 
             encoder = " ".join(encoder_temp)
             decoder = " ".join(decoder_temp)
@@ -56,7 +65,9 @@ def split_data(dataset, sizes):
     val_size = sizes[1]
     test_size = sizes[2]
 
-    indices = torch.randperm(sum(sizes)).tolist()
+    g = torch.Generator()
+    g.manual_seed(42)
+    indices = torch.randperm(sum(sizes), generator=g).tolist()
     train_idx = indices[:train_size]
     val_idx = indices[train_size : train_size+val_size]
     test_idx = indices[train_size+val_size:]

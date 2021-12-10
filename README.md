@@ -3,7 +3,7 @@
 ## Evaluation instructions
 We will hand-evaluate the model on how well it answered the question and how fluent the answers were. 
 
-| Question Answering  | 
+| Question Answering  |  |
 | -------- | -------- | 
 | 5 | The question is generally answered.  | 
 | 4 | The answer is somewhat related to the question and COVID-19, and it makes logical sense.  | 
@@ -26,15 +26,15 @@ Answer: I woke up with a cough and fever. I haven't had contact with anyone with
 Rating: 3 (not related to the question but related to COVID-19; thinks it's a patient but makes sense)
 
 Question: I have a dry cough. Could I have COVID-19?
-Answer: Cough respiratory COVID respiratory disease testing do testing
+Answer: Cough respiratory COVID respiratory disease testing testing testing testing ...
 Rating: 2 (clearly related to COVID-19, but does not make any sense)
 
 Question: I have a dry cough. Could I have COVID-19?
-Answer: ..
+Answer: pandas pandas pandas bears bears polar polar polar ...
 Rating: 1 (unrelated to the question or COVID and doesn't make sense)
 
 
-| Fluency  | 
+| Fluency  |  |
 | -------- | -------- | 
 | 5 | flawless English  | 
 | 4 | good English  | 
@@ -57,9 +57,9 @@ Answer: Perhaps. If testing is present for access there where you are, that can 
 Rating: 3
 
 Question: I have a dry cough. Could I have COVID-19?
-Answer: Perhaps do testing if as present or if as accessible.  text chat?.,
+Answer: Perhaps do testing do testing if as present or if as accessible.  text chat?.,
 Rating: 2
 
 Question: I have a dry cough. Could I have COVID-19?
-Answer: video text testing present 
+Answer: video text testing present testing video video video ...
 Rating: 1 
