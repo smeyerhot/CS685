@@ -6,9 +6,9 @@ We will hand-evaluate the model on how well it answered the question and how flu
 | Question Answering  |  |
 | -------- | -------- | 
 | 5 | The question is generally answered.  | 
-| 4 | The answer is somewhat related to the question and COVID-19, and it makes logical sense.  | 
-| 3 | The answer is not related to the question, but it is about COVID-19 and makes logical sense.  | 
-| 2 | The answer is somewhat related to the question or COVID-19, but it does not make logical sense.  | 
+| 4 | The answer is somewhat related to the question and COVID-19/respiratory illness, and it makes logical sense.  | 
+| 3 | The answer is not related to the question, but it is about COVID-19/respiratory illness and makes logical sense. OR It answers the question and makes sense but gives bad advice. | 
+| 2 | The answer is somewhat related to the question or COVID-19/respiratory illness, but it does not make logical sense.  | 
 | 1 | The answer is unrelated to the question and does not make logical sense.  | 
 
 Examples: 
@@ -18,16 +18,28 @@ Answer: Perhaps. If you have access to testing you can do that. Would you like t
 Rating: 5 (answers the question)
 
 Question: I have a dry cough. Could I have COVID-19?
-Answer: Some symptoms of COVID-19 include fever, dry cough, headache, body aches.
-Rating: 4 (doesn't quite answer the question but gives an answer related to the question)
+Answer: If you have access to testing you can do that.
+Rating: 4 (doesn't quite answer the question but makes a reasonable suggestion; is nearly a 5)
 
 Question: I have a dry cough. Could I have COVID-19?
 Answer: I woke up with a cough and fever. I haven't had contact with anyone with COVID-19 could I have COVID-19 could I have COVID-19 could I have COVID-19 ... 
 Rating: 3 (not related to the question but related to COVID-19; thinks it's a patient but makes sense)
 
 Question: I have a dry cough. Could I have COVID-19?
+Answer: COVID-19 is an infectious disease cause by SARS-CoV-2.
+Rating: 3 (not related to the question but related to COVID-19; makes sense)
+
+Question: I have a dry cough. Could I have COVID-19?
+Answer: No, of course not. It's just a cold.
+Rating: 3 (answers the question but gives bad advice)
+
+Question: I have a dry cough. Could I have COVID-19?
 Answer: Cough respiratory COVID respiratory disease testing testing testing testing ...
 Rating: 2 (clearly related to COVID-19, but does not make any sense)
+
+Question: I have a dry cough. Could I have COVID-19?
+Answer: In brief: your daughter has COVID because of asthma she got from a polar bear
+Rating: 2 (clearly related to COVID-19, but does not make sense, though it is more fluent than the above example)
 
 Question: I have a dry cough. Could I have COVID-19?
 Answer: pandas pandas pandas bears bears polar polar polar ...
