@@ -4,8 +4,15 @@
 
 Our suggestion for running the code in this repository is to use google drive for desktop https://www.google.com/drive/download/ and enable streaming. You can then open your google drive folder in terminal and clone this repo. At this point you can then go to google drive in browser and open any of the notebooks by double clicking on them.  You will now need to download the file med_dialogue_sample.pickle from the following  https://drive.google.com/drive/folders/1mvsW-300yjhgwLZHSDDpEVWapx74l0Hb and place it in the project directory. You can now start running any of the notebooks via the Run All command. Near the top will be a cell that changes directory in your google drive. We stored our project in /UMass/CS685 but you can update this to whatever you choose.
 
+## Which notebooks contain what? 
 
-## Evaluation instructions
+* The baseline can be found in simple_baseline.ipynb.
+* The regular language model can be found in decoder_only.ipynb.
+* The prefix language model can be found in prefix.ipynb.
+* The similarity model can be found in biobert-decoder.ipynb. 
+* The data augmentation that generates the med_dialogue_sample.pickle file in augmentation.ipynb. 
+
+## Evaluation examples (for annotators) 
 We will hand-evaluate the model on how well it answered the question and how fluent the answers were. 
 
 | Question Answering  |  |
