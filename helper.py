@@ -1,5 +1,5 @@
 import datetime
-# from rouge_score import rouge_scorer
+from rouge_score import rouge_scorer
 import pandas as pd
 import numpy as np
 from sklearn.metrics import cohen_kappa_score
@@ -28,8 +28,12 @@ def avg_evals(csvs):
     fluency_list = []
 
     for i, csvlist in enumerate(csvs):
+        # print(i)
         df1 = pd.read_csv(csvlist[0]) 
         df2 = pd.read_csv(csvlist[1]) 
+
+        # print(df1.columns)
+        # print(df2.columns)
 
         avg_question = (df1["question_score"] + df2["question_score"])/2
         avg_fluency = (df1["fluency_score"] + df2["fluency_score"])/2
@@ -58,15 +62,18 @@ def agreements(csvs):
     annotator1 = pd.concat(annotator1_list)
     annotator2 = pd.concat(annotator2_list)
 
-    print("question score")
-    same = annotator1["question_score"].values==annotator2["question_score"].values
-    raw_agreement = list(same).count(True) / len(annotator1["question_score"])
+    print("question score agreement")
+    # same = annotator1["question_score"].values==annotator2["question_score"].values
+    # print(annotator1["question_score"].values)
+    # print(annotator2["question_score"].values)
+    # print(annotator1["question_score"].values==annotator2["question_score"].values)
+    # raw_agreement = list(same).count(True) / len(annotator1["question_score"])
     # print(raw_agreement)
 
     cohens = cohen_kappa_score(annotator1["question_score"], annotator2["question_score"], weights="linear")
     print(cohens)
 
-    print("fluency")
+    print("fluency agreement")
     same = annotator1["fluency_score"].values==annotator2["fluency_score"].values
     raw_agreement = list(same).count(True) / len(annotator1["fluency_score"])
     # print(raw_agreement)
@@ -80,28 +87,28 @@ if __name__=='__main__':
     #     "Perhaps. If you have access to testing, you should do that.")
     # print(score)
 
-    # avgs_ci("/Users/kavery/Documents/rouge_prefix.csv")
+    # avgs_ci("/Users/kavery/Documents/rouge_biobert-decoder.csv")
 
-    avg_evals([["/Users/kavery/Downloads/processed_baselines/baseline1_kate.csv", 
-                "/Users/kavery/Downloads/processed_baselines/baseline1_mina.csv"], \
-              ["/Users/kavery/Downloads/processed_baselines/baseline2_kate.csv", 
-              "/Users/kavery/Downloads/processed_baselines/baseline2_mina.csv"], \
-              ["/Users/kavery/Downloads/processed_baselines/baseline3_kate.csv",
-              "/Users/kavery/Downloads/processed_baselines/baseline3_mina.csv"], \
-              ["/Users/kavery/Downloads/processed_baselines/baseline4_kate.csv",
-              "/Users/kavery/Downloads/processed_baselines/baseline4_mina.csv"], \
-              ["/Users/kavery/Downloads/processed_baselines/baseline5_kate.csv",
-              "/Users/kavery/Downloads/processed_baselines/baseline5_teo.csv"]]
+    avg_evals([["/Users/kavery/Downloads/processed_biobert/biobert-decoder1_kate.csv", 
+                "/Users/kavery/Downloads/processed_biobert/biobert-decoder1_juhyeon.csv"], \
+              ["/Users/kavery/Downloads/processed_biobert/biobert-decoder2_juhyeon.csv", 
+              "/Users/kavery/Downloads/processed_biobert/biobert-decoder2_kate.csv"], \
+              ["/Users/kavery/Downloads/processed_biobert/biobert-decoder3_mina.csv",
+              "/Users/kavery/Downloads/processed_biobert/biobert-decoder3_juhyeon.csv"], \
+              ["/Users/kavery/Downloads/processed_biobert/biobert-decoder4_juhyeon.csv",
+              "/Users/kavery/Downloads/processed_biobert/biobert-decoder4_kate.csv"], \
+              ["/Users/kavery/Downloads/processed_biobert/biobert-decoder5_juhyeon.csv",
+              "/Users/kavery/Downloads/processed_biobert/biobert-decoder5_mina.csv"]]
               )
 
-    agreements([["/Users/kavery/Downloads/processed_baselines/baseline1_kate.csv", 
-                "/Users/kavery/Downloads/processed_baselines/baseline1_mina.csv"], \
-              ["/Users/kavery/Downloads/processed_baselines/baseline2_kate.csv", 
-              "/Users/kavery/Downloads/processed_baselines/baseline2_mina.csv"], \
-              ["/Users/kavery/Downloads/processed_baselines/baseline3_kate.csv",
-              "/Users/kavery/Downloads/processed_baselines/baseline3_mina.csv"], \
-              ["/Users/kavery/Downloads/processed_baselines/baseline4_kate.csv",
-              "/Users/kavery/Downloads/processed_baselines/baseline4_mina.csv"], \
-              ["/Users/kavery/Downloads/processed_baselines/baseline5_kate.csv",
-              "/Users/kavery/Downloads/processed_baselines/baseline5_teo.csv"]]
+    agreements([["/Users/kavery/Downloads/processed_biobert/biobert-decoder1_kate.csv", 
+                "/Users/kavery/Downloads/processed_biobert/biobert-decoder1_juhyeon.csv"], \
+              ["/Users/kavery/Downloads/processed_biobert/biobert-decoder2_juhyeon.csv", 
+              "/Users/kavery/Downloads/processed_biobert/biobert-decoder2_kate.csv"], \
+              ["/Users/kavery/Downloads/processed_biobert/biobert-decoder3_mina.csv",
+              "/Users/kavery/Downloads/processed_biobert/biobert-decoder3_juhyeon.csv"], \
+              ["/Users/kavery/Downloads/processed_biobert/biobert-decoder4_juhyeon.csv",
+              "/Users/kavery/Downloads/processed_biobert/biobert-decoder4_kate.csv"], \
+              ["/Users/kavery/Downloads/processed_biobert/biobert-decoder5_juhyeon.csv",
+              "/Users/kavery/Downloads/processed_biobert/biobert-decoder5_mina.csv"]]
               )
